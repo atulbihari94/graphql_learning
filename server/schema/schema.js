@@ -16,6 +16,8 @@ const books = [
 {name: 'PQR',genre:'second', id: '2', authorId: '2'},
 {name: 'ASD',genre:'first', id: '3', authorId: '1'},
 {name: 'FGH',genre:'second', id: '4', authorId: '2'},
+{name: 'FGH-1',genre:'second', id: '5', authorId: '2'},
+
 ];
 
 const authors = [
@@ -67,14 +69,28 @@ fields: {
             return _.find(books, {id: args.id});
         }
     },
+    
     author: {
         type: AuthorType,
         args: {id: {type: GraphQLID}},
         resolve(parent, args){
             return _.find(authors, {id: args.id})
         }
+    },
+    
+    books: {
+    type: new GraphQLList(BookType),
+    resolve(parent, args) {
+        return books;
+     },
+    },
+    
+    authors: {
+        type: new GraphQLList(AuthorType),
+        resolve(parent, args) {
+           return authors;
+        }
     }
-
 }
 });
 
