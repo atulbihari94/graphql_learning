@@ -6,10 +6,11 @@ const schema = require('./schema/schema.js');
 const app = express();
 const PORT = 3000;
 
-// mongoose.connect('mongodb+srv://atulbihari:atulbihari@gql-cluster.dtshm.mongodb.net/gql-database', { useNewUrlParser: true });
-// mongoose.connection.once('open', () => {
-//   console.log('Connected to database');
-// })
+const uri = "mongodb+srv://atulbihari:atulbihari@gql-cluster.dtshm.mongodb.net/gql-database?retryWrites=true&w=majority"
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connection.once('open', () => {
+  console.log('Connected to database');
+})
 
 app.use('/graphql', graphqlHTTP({
   schema,
